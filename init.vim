@@ -66,7 +66,7 @@ set autoread
 set lazyredraw
 
 syntax sync minlines=256
-" set foldminlines=7
+set foldnestmax=2
 
 " No annoying sound on errors
 set t_vb=
@@ -74,13 +74,12 @@ set tm=500
 set noerrorbells
 set novisualbell
 
-set foldcolumn=1
+set foldcolumn=3
 set foldmethod=syntax
 
 set list
 
-nnoremap <space> za
-nnoremap <s-space> zA
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
 set listchars=tab:▸·,extends:…,precedes:«,extends:»,trail:·,eol:¬
 let &showbreak = '↳ '
 
@@ -96,9 +95,7 @@ nmap <leader>w :wa!<cr>
 
 set spelllang=ru_ru,en_us
 
-nmap <leader>sr :set spell spelllang=ru_ru<cr>
-nmap <leader>se :set spell spelllang=en_us<cr>
-nmap <leader>ss :set spell<cr>
+nmap <leader>se :set spell<cr>
 nmap <leader>sd :set nospell<cr>
 
 nmap <leader>6 :diffget LOCAL<cr>
@@ -258,7 +255,7 @@ Plug 'mhinz/vim-signify'
 Plug 'vim-scripts/indentpython.vim'
 Plug 'chemzqm/vim-jsx-improve'
 Plug 'ap/vim-css-color'
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
+" Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
 " Plug 'Yggdroot/indentLine'
 "
 function! BuildYCM(info)
@@ -267,7 +264,7 @@ function! BuildYCM(info)
   " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
   if a:info.status == 'installed' || a:info.force
-    !./install.py
+    !./install.py --ts-completer
   endif
 endfunction
 

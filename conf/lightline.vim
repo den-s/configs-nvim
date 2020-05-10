@@ -4,17 +4,19 @@ let g:lightline = {
       \    'left': [ [ 'mode', 'paste' ],
       \              [ 'fugitive', 'githunks', 'gitversion' ],
       \              [ 'filename', 'ctrlpmark' ] ],
-      \    'right': [ [ 'ale' ], [ 'lineinfo' ], ['percent'],
-      \               [ 'filetype', 'fileformat', 'fileencoding' ] ]
+      \    'right': [ [ 'ale' ], [ 'percent', 'lineinfo' ],
+      \               [ 'filetype' ] ]
       \ },
       \  'inactive': {
       \    'left': [ ['mode'], [ 'fugitive' ], [ 'filename' ] ],
+      \    'right': [],
       \ },
       \  'tab': {
       \   'active': [ 'tabnum', 'filename', 'modified' ],
       \   'inactive': [ 'tabnum', 'filename', 'modified' ] },
       \ 'component': {
-      \  'lineinfo': ' %3l:%-2v'
+      \  'lineinfo': ' %2l:%-2v',
+      \  'percent': '%2p%%',
       \ },
       \ 'component_function': {
       \  'fugitive': 'LightlineFugitive',
@@ -24,18 +26,19 @@ let g:lightline = {
       \  'mode': 'LightlineMode',
       \  'filename': 'LightlineFilename',
       \  'ale': 'LightlineAle',
-      \  'fileformat': 'LightlineFileformat',
-      \  'fileencoding': 'LightlineFileencoding',
-      \  'filetype': 'LightlineFiletype',
       \  'modified': 'LightlineModified',
+      \  'filetype': 'LightlineFiletype',
       \ },
       \  'separator': { 'left': '', 'right': '' },
-      \  'subseparator': { 'left': '', 'right': '' },
+      \  'subseparator': { 'left': '', 'right': '' },
       \  'tabline_separator': { 'left': '', 'right': '' },
       \  'tabline_subseparator': { 'left': '', 'right': '' }
       \ }
 
-
+" \  'fileencoding': 'LightlineFileencoding',
+" \  'fileformat': 'LightlineFileformat',
+" \  'filetype': 'LightlineFiletype',
+" \  'subseparator': { 'left': '', 'right': '' },
 let g:lightline.mode_map = {
       \ 'n' : 'N',
       \ 'i' : 'I',
@@ -43,7 +46,7 @@ let g:lightline.mode_map = {
       \ 'v' : 'V',
       \ 'V' : 'V-LINE',
       \ "\<C-v>": 'V-BLOCK',
-      \ 'c' : 'C',
+      \ 'c' : 'S',
       \ 's' : 'S',
       \ 'S' : 'S-LINE',
       \ "\<C-s>": 'S-BLOCK',
@@ -123,16 +126,16 @@ function! CtrlPStatusFunc_2(str)
 endfunction
 
 function! LightlineFileformat()
-  return winwidth(0) > 160 ? &fileformat : ''
+  return winwidth(0) > 120 ? &fileformat : ''
 endfunction
 
 function! LightlineFiletype()
-  return winwidth(0) > 160 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
 endfunction
 
-function! LightlineFileencoding()
-  return winwidth(0) > 160 ? (&fenc !=# '' ? &fenc : &enc) : ''
-endfunction
+" function! LightlineFileencoding()
+"   return winwidth(0) > 120 ? (&fenc !=# '' ? &fenc : &enc) : ''
+" endfunction
 
 function! LightlineModified()
   return winwidth(0) > 70 ? (&modified > 0 ? '[+]' : '') : ''
@@ -148,13 +151,15 @@ endfunction
 function! LightlineFilename()
   let fname = expand('%:t')
   return fname == 'ControlP' && has_key(g:lightline, 'ctrlp_item') ? g:lightline.ctrlp_item :
-        \ fname == '__Tagbar__' ? g:lightline.fname :
-        \ fname =~ '__Gundo\|NERD_tree' ? '' :
+        \ fname ==# '__Tagbar__' ? g:lightline.fname :
+        \ fname ==# '__Gundo__' ? 'Gundo' :
+        \ fname ==# '__Gundo_Preview__' ? 'Gundo Preview' :
+        \ fname =~# 'NERD_tree' ? '' :
         \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
         \ &ft == 'unite' ? unite#get_status_string() :
         \ &ft == 'vimshell' ? vimshell#get_status_string() :
         \ ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
-        \ ('' != fname ? (winwidth(0) > 115 ? expand('%') : expand('%:t')) : '[No Name]') .
+        \ ('' != fname ? (winwidth(0) > 120 ? expand('%') : expand('%:t')) : '[No Name]') .
         \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
 endfunction
 
