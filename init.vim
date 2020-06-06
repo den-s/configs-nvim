@@ -1,3 +1,15 @@
+" * * * * * * * * * * *
+" *   _______ ______  *
+" *  |  _____/ _____| *
+" *  | |    / /\      *
+" *  | |    \ \|___   *
+" *  | |     \___  \  *
+" *  | |     | |  \ \ *
+" *  | |____/_/___/ / *
+" *  |______|______/  *
+" *                   *
+" * * * * * * * * * * *
+
 set encoding=utf-8
 scriptencoding utf-8
 
@@ -92,11 +104,21 @@ set fencs=utf-8,cp1251,koi8-r,ucs-2,cp866
 let mapleader = ","
 let g:mapleader = ","
 nmap <leader>w :wa!<cr>
+nmap <leader>q :q<cr>
 
 set spelllang=ru_ru,en_us
 
-nmap <leader>se :set spell<cr>
-nmap <leader>sd :set nospell<cr>
+" Toggle spellchecking
+function! ToggleSpellCheck()
+  set spell!
+  if &spell
+    echo "Spellcheck is ON"
+  else
+    echo "Spellcheck is OFF"
+  endif
+endfunction
+
+nnoremap <silent><Leader>ss :call ToggleSpellCheck()<CR>
 
 nmap <leader>6 :diffget LOCAL<cr>
 nmap <leader>7 :diffget BASE<cr>
@@ -254,9 +276,16 @@ Plug 'itchyny/lightline.vim'
 Plug 'mhinz/vim-signify'
 Plug 'vim-scripts/indentpython.vim'
 Plug 'chemzqm/vim-jsx-improve'
+Plug 'den-s/vim-context-commentstring'
 Plug 'ap/vim-css-color'
-" Plug 'ternjs/tern_for_vim', { 'do': 'npm install && npm install -g tern' }
-" Plug 'Yggdroot/indentLine'
+Plug 'tpope/vim-repeat'
+if has('nvim')
+  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/defx.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 "
 function! BuildYCM(info)
   " info is a dictionary with 3 fields
@@ -264,7 +293,7 @@ function! BuildYCM(info)
   " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
   if a:info.status == 'installed' || a:info.force
-    !./install.py --ts-completer
+    !./install.py --js-completer
   endif
 endfunction
 
@@ -329,4 +358,7 @@ source ~/.config/nvim/conf/deoplete.vim
 
 source ~/.config/nvim/conf/delimmate.vim
 
+source ~/.config/nvim/conf/defx.vim
+
 " } Plugins configs end
+"

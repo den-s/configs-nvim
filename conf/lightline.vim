@@ -107,6 +107,7 @@ function! LightlineMode()
         \ fname == '__Gundo__' ? 'Gundo' :
         \ fname == '__Gundo_Preview__' ? 'Gundo Preview' :
         \ fname =~ 'NERD_tree' ? 'NERDTree' :
+        \ fname =~ 'defx' ? 'Defx' :
         \ &ft == 'unite' ? 'Unite' :
         \ &ft == 'vimfiler' ? 'VimFiler' :
         \ &ft == 'vimshell' ? 'VimShell' :
@@ -155,6 +156,7 @@ function! LightlineFilename()
         \ fname ==# '__Gundo__' ? 'Gundo' :
         \ fname ==# '__Gundo_Preview__' ? 'Gundo Preview' :
         \ fname =~# 'NERD_tree' ? '' :
+        \ fname =~# 'defx' ? '' :
         \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
         \ &ft == 'unite' ? unite#get_status_string() :
         \ &ft == 'vimshell' ? vimshell#get_status_string() :

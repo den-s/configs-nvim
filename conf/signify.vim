@@ -9,6 +9,6 @@ let g:signify_sign_weight = 'none'
 nmap <leader>hp :SignifyHunkDiff<cr>
 nmap <leader>hu :SignifyHunkUndo<cr>
 
-highlight SignifySignAdd    ctermfg=white  ctermbg=NONE    guifg=#2aa889 guibg=#11151c
+highlight SignifySignAdd    ctermfg=magenta  ctermbg=NONE    guifg=#2aa889 guibg=#11151c
 highlight SignifySignDelete ctermfg=red    ctermbg=NONE    guifg=#d26937 guibg=#11151c
 highlight SignifySignChange ctermfg=cyan   ctermbg=NONE    guifg=#195466 guibg=#11151c

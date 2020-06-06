@@ -15,8 +15,6 @@ let g:fzf_colors =
 
 let g:fzf_buffers_jump = 1
 
-map ; :GFiles<CR>
-
-" let g:fzf_launcher = $HOME . '/.vim/conf/iTerm4fzf.sh %s'
+map ; :Files<CR>
 
 " set rtp+=/usr/local/opt/fzf

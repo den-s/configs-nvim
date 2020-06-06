@@ -6,6 +6,14 @@ class $1 extends ${2:React.PureComponent} {
 }
 endsnippet
 
+snippet rfunc "React function"
+import React from 'react'
+
+export const $1 = () => {
+	return ${2: null}
+}
+endsnippet
+
 snippet ir "Import react & Prop.types"
 import React from 'react'$1
 import PropTypes from 'prop-types'$1
@@ -88,4 +96,26 @@ endsnippet
 
 snippet cs; "const { | } = this.state;"
 const { $1 } = this.state;
+endsnippet
+
+snippet im "import { | } from ''"
+import { $1 } from '$2'
+endsnippet
+
+snippet im; "import { | } from '';"
+import { $1 } from '$2';
+endsnippet
+
+snippet rns "import { StyleSheet } from 'react-native'"
+import { StyleSheet } from 'react-native'
+
+export default StyleSheet.create({$1})
+endsnippet
+
+snippet ims "Import Styles from './styles'"
+import Styles from './styles'
+endsnippet
+
+snippet ims; "Import Styles from './styles'"
+import Styles from './styles';
 endsnippet
